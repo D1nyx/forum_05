@@ -1,3 +1,4 @@
+
 <?php
     include_once 'verificar_sessao.php';
 ?>
