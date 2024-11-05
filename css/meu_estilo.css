@@ -1,0 +1,18 @@
+.monoton-regular {
+    font-family: "Monoton", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.bg-buzio {
+    background-color: rgb(8, 177, 17);
+}
+
+.bg-navegacao {
+    background-color: rgba(8, 177, 16, 0.363);
+}
+
+.datas {
+    font-size: x-small;
+    margin-bottom: auto;
+}
