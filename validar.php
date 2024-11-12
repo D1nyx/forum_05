@@ -4,13 +4,16 @@
         if (isset($_POST['username']) && isset ($_POST['password'])) {
             $username = $_POST['username'];
             $password = $_POST['password'];
-            if ( $username != 'utilizador' && $password != 'segredo') {
+            include_once 'bd.php';
+            $rs = autenticarUtilizador($username, $password);
+            if ( $rs == null) {
                 $_SESSION['erro'] = 'Credenciais erradas';
                 header('Location: login.php');
             }
             else {
-                $_SESSION['username'] = $username;
-                $_SESSION['tipo'] = 2; // 0 = ADMIN, 1 = GESTOR, 2 = UTILIZADOR
+                $_SESSION['idutilizador'] = $rs['idutilizador'];
+                $_SESSION['utilizador'] = $rs['utilizador'];
+                $_SESSION['tipo'] = $rs['tipo']; // 0 = ADMIN, 1 = UTILIZADOR
                 header('Location: topicos.php');
             }
         }

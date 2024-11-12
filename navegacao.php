@@ -3,7 +3,7 @@ include_once('verificar_sessao.php');
 ?>
 <nav class="navbar bg-navegacao rounded">
     <div class="container-fluid">
-        <span>Bem-vindo, <i><?php echo htmlspecialchars($_SESSION['username']); ?></i></span>
+        <span>Bem-vindo, <i><?php echo $_SESSION['utilizador']; ?></i></span>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,7 +17,7 @@ include_once('verificar_sessao.php');
                 </form>
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role=  "button" data-bs-toggle="dropdown">
                             Administração
                         </a>
                         <ul class="dropdown-menu">

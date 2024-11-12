@@ -1,6 +1,7 @@
 
 <?php
     include_once 'verificar_sessao.php';
+    include_once 'bd.php';
 ?>
 
 <!DOCTYPE html>
@@ -23,23 +24,32 @@
             </thead>
             <tbody>
                 <?php
-                for ($i =0; $i < 20; $i++) {
-                    $id_topico = $i+1;
+                $sql ='SELECT idtopico, titulo, datatopico, idutilizador, utilizador';
+                $sql .=' FROM t_topico JOIN t_utilizador ON';
+                $sql .=' t_topico.refidutilizador = t_utilizador.idutilizador';
+                $sql .=' ORDER BY titulo ASC';
+                $rs = consultarBD($sql);
+                foreach ($rs as $registo) {
+                    $id_topico = $registo['idtopico'];
+                    $titulo = $registo['titulo'];
+                    $datatopico = date_format(date_create($registo['datatopico']),"d/m/Y H:i:s");
+                    $idutilizador = $registo['idutilizador'];
+                    $utilizador = $registo['utilizador'];  
+                }
                 ?>
                 <tr>
                     <td class="p-2">
                         <p>
                             <a class="link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="topico.php?id_topico=<?php echo $id_topico; ?>">
-                                Título do Tópico <?php echo $id_topico; ?>
+                                <?php echo $titulo; ?>
                             </a>
                         </p>
                         <p class="fw-light datas text-end pb-0">
-                            Publicado por autor_do_topico em 01/01/2000
+                            Publicado por <?php echo $utilizador; ?> em <?php echo $datatopico; ?>
                         </p>
                     </td>  
                 </tr>
                 <?php
-                }
                 ?>
             </tbody>
         </table>
