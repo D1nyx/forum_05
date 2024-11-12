@@ -35,7 +35,6 @@
                     $datatopico = date_format(date_create($registo['datatopico']),"d/m/Y H:i:s");
                     $idutilizador = $registo['idutilizador'];
                     $utilizador = $registo['utilizador'];  
-                }
                 ?>
                 <tr>
                     <td class="p-2">
@@ -50,10 +49,10 @@
                     </td>  
                 </tr>
                 <?php
+                }
                 ?>
             </tbody>
         </table>
-
         <?php include_once 'footer.php'; ?>
     </div>
 </body>
