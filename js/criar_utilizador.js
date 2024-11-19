@@ -1,54 +1,49 @@
 function validarCarateres(texto, op) {
     let carateresEspeciais = '';
-    if (op == 0 || undefined) { // espaços
+    if (op === 0) { // espaços
         carateresEspeciais = /[ ]+/;
-    }
-    else if (op == 1) { // carateres especiais
+    } else if (op === 1) { // carateres especiais
         carateresEspeciais = /[!@#$%^&*()ºª€£§«»¨_+\-=\[\]{};':"\\|,.<>\/?]+/;
-    }
-    else if (op == 2) { // carateres portugueses
+    } else if (op === 2) { // carateres portugueses
         carateresEspeciais = /[áàâãäéèêëíìîïóòôõöúùûçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÇÑ]+/;
     }
-    if (carateresEspeciais.test(texto)) {
-        return true;
-    }
-    return false;
+    return carateresEspeciais.test(texto);
 }
 
 function validarUsername() {
-    let username = document.getElementById('username');
+    const username = document.getElementById('username');
     const username_label = document.getElementById('username-label');
     let msg = 'Nome de utilizador';
-
+    console.log(username);
     if (username.value.trim().length == 0) {
         msg = 'Nome de utilizador: Preencha este campo';
     } else if (username.value.trim().length < 4) {
         msg = 'Nome de utilizador: Pelo menos 4 caracteres';
-    } else if (validarCaracteres(username.value.trim(), 0)) {
+    } else if (validarCarateres(username.value.trim(), 0)) {
         msg = 'Nome de utilizador: Não digite espaços';
-    } else if (validarCaracteres(username.value.trim(), 1)) {
+    } else if (validarCarateres(username.value.trim(), 1)) {
         msg = 'Nome de utilizador: Não digite caracteres especiais';
-    } else if (validarCaracteres(username.value.trim(), 2)) {
+    } else if (validarCarateres(username.value.trim(), 2)) {
         msg = 'Nome de utilizador: Não digite caracteres portugueses';
     }
 
-    if (msg != 'Nome de utilizador') {
+    if (msg !== 'Nome de utilizador') {
         username.className = 'form-control is-invalid my-2';
         username_label.style.color = 'red';
         username_label.innerHTML = msg;
     } else {
-        let endereco = 'ajax/ajax_verificar_utilizador.php';
-        var parametros = 'utilizador=' + username.value.trim() + '';
+        const endereco = 'ajax/ajax_verificar_utilizador.php';
+        const parametros = 'utilizador=' + encodeURIComponent(username.value.trim());
         $.ajax({
             url: endereco,
-            type: 'post',
+            type: 'POST',
             data: parametros,
-            timeout: 5000,
+            timeout: 500,
             success: function (resultado) {
-                if (resultado == 0) {
+                if (resultado === '0') {
                     username.className = 'form-control is-invalid my-2';
                     username_label.style.color = 'red';
-                    msg = 'Nome de utilizador já existe um utilizador com esse nome';
+                    msg = 'Nome de utilizador: Já existe um utilizador com esse nome';
                 } else {
                     username.className = 'form-control is-valid my-2';
                     username_label.style.color = 'green';
@@ -56,8 +51,8 @@ function validarUsername() {
                 }
                 username_label.innerHTML = msg;
             },
-            error: function (jqxhr, textstatus, errormessage) {
-                console.log('Erro em criar_utilizador.js:', jqxhr, textstatus, errormessage);
+            error: function (jqxhr, textStatus, errorMessage) {
+                console.error('Erro em criar_utilizador.js:', jqxhr, textStatus, errorMessage);
             },
         });
     }
@@ -69,7 +64,8 @@ function validarPassword() {
     const confpassword = document.getElementById('confpassword');
     const confpassword_label = document.getElementById('confpassword-label');
     let msg = 'Palavra passe';
-    if (password.value.length == 0) {
+
+    if (password.value.length === 0) {
         msg = 'Palavra passe: Preencha este campo';
     } else if (password.value.length < 8) {
         msg = 'Palavra passe: Digite pelo menos 8 caracteres';
@@ -77,16 +73,17 @@ function validarPassword() {
         msg = 'Palavra passe: Não digite espaços';
     } else if (validarCarateres(password.value, 2)) {
         msg = 'Palavra passe: Não digite caracteres portugueses';
-    } else if (confpassword.value.length >= 8 && password.value == confpassword.value) {
+    } else if (confpassword.value.length >= 8 && password.value === confpassword.value) {
         confpassword.className = 'form-control is-valid my-2';
         confpassword_label.style.color = 'green';
         confpassword_label.innerHTML = 'Confirme a palavra passe';
-    } else if (confpassword.value.length >= 8 && password.value != confpassword.value) {
+    } else if (confpassword.value.length >= 8 && password.value !== confpassword.value) {
         confpassword.className = 'form-control is-invalid my-2';
         confpassword_label.style.color = 'red';
         confpassword_label.innerHTML = 'Confirme Palavra passe: Palavras passe diferentes';
     }
-    if (msg != 'Palavra passe') {
+
+    if (msg !== 'Palavra passe') {
         password.className = 'form-control is-invalid my-2';
         password_label.style.color = 'red';
     } else {
@@ -101,20 +98,19 @@ function validarConfpassword() {
     const confpassword = document.getElementById('confpassword');
     const confpassword_label = document.getElementById('confpassword-label');
     let msg = 'Confirme a palavra passe';
-    if (confpassword.value.length == 0) {
+
+    if (confpassword.value.length === 0) {
         msg = 'Confirme a palavra passe: Preencha este campo';
-    }
-    else if (confpassword.value.length < 8) {
+    } else if (confpassword.value.length < 8) {
         msg = 'Confirme a palavra passe: Digite pelo menos 8 carateres';
-    }
-    else if (password.value.length >= 8 && password.value != confpassword.value) {
+    } else if (password.value.length >= 8 && password.value !== confpassword.value) {
         msg = 'Confirme a palavra passe: Palavras passe diferentes';
     }
-    if (msg != 'Confirme a palavra passe') {
+
+    if (msg !== 'Confirme a palavra passe') {
         confpassword.className = 'form-control is-invalid my-2';
         confpassword_label.style.color = 'red';
-    }
-    else {
+    } else {
         confpassword.className = 'form-control is-valid my-2';
         confpassword_label.style.color = 'green';
     }
@@ -130,14 +126,14 @@ function submitUtilizador() {
     const password_label = document.getElementById('password-label');
     const confpassword_label = document.getElementById('confpassword-label');
 
-    if (username_label.style.color == 'green' &&
-        password_label.style.color == 'green' &&
-        confpassword_label.style.color == 'green') {
+    if (username_label.style.color === 'green' &&
+        password_label.style.color === 'green' &&
+        confpassword_label.style.color === 'green') {
 
-        endereco = 'ajax/ajax_inserir_utilizador.php';
-        parametros = 'utilizador=' + username.value.trim();
-        parametros += '&senha=' + password.value.trim();
-        parametros += '&tipo=' + tipo.value;
+        const endereco = 'ajax/ajax_inserir_utilizador.php';
+        let parametros = 'utilizador=' + encodeURIComponent(username.value.trim());
+        parametros += '&senha=' + encodeURIComponent(password.value.trim());
+        parametros += '&tipo=' + encodeURIComponent(tipo.value);
 
         $.ajax({
             type: 'POST',
@@ -159,7 +155,7 @@ function submitUtilizador() {
                 alert('Utilizador inserido com sucesso');
             },
             error: function (jqxhr, textStatus, errorMessage) {
-                console.log("Erro em inserir utilizador:", jqxhr, textStatus, errorMessage);
+                console.error("Erro em inserir utilizador:", jqxhr, textStatus, errorMessage);
             }
         });
     }

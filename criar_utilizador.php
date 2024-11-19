@@ -14,7 +14,7 @@ include_once 'bd.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fórum05</title>
-    <script scr="jquery/jquery-3.7.1.js"></script>
+    <script src="jquery/jquery-3.7.1.js"></script>
     <?php require_once 'metadados.php'; ?>
     <script src="js/criar_utilizador.js"></script>
 </head>
