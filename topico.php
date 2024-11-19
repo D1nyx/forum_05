@@ -29,6 +29,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fórum</title>
     <?php require_once 'metadados.php' ?>
+    <script>
+        window.addEventListener("load", ()=> {
+            document.body.scrollIntoView(false);
+        });
+    </script>
 </head>
 <body>
         <div class = "container">
@@ -62,7 +67,7 @@
                             <a href = "./editar_mensagem.php?id_mensagem=<?php echo $idmensagem; ?>">
                                 <img src = "./assets/img/editar.png" class = "img-fluid topico-icones"
                                     alt = "imagem_editar" title  =  "Editar mensagem">
-                            </>
+                            </s>
                             <a href = "./eliminar_mensagem.php?id_mensagem =<?php echo $idmensagem; ?>">
                                 <img src = "./assets/img/eliminar.png" class = "img-fluid topico-icones"
                                     alt =  "imagem_eliminar" title =  "Eliminar mensagem">
@@ -80,9 +85,9 @@
             <div class = "row pt-2">
                 <div class = "col-sm-2"></div>
                 <div class = "col-sm-10 text-center">
-                    <form>
-                        <textarea class="form-control mb-1" id="mensagem" rows="3"></textarea>
-                        <button type="submit" class="btn btn-outline-success mt-1">Responder</button>
+                    <form action="./responder_topico.php?id_topico=<?php echo $_GET['id_topico']; ?>" method="post">
+                        <textarea class="form-control mb-1" id="mensagem" name="mensagem" rows="3" required></textarea>
+                        <button type="submit" class="btn btn-outline-success mt-1">Responder</button>   
                     </form>
                 </div>
             </div>

@@ -19,7 +19,7 @@ function ligarBD(){
         $conn = ligarBD();
         if($conn == null)return 0;
         $password = md5($password);
-        $sql = 'SELECT idutilizador, utilizador, tipo FROM t_utilizador ';
+        $sql = 'SELECT idutilizador, utilizador, tipo, ativo FROM t_utilizador ';
         $sql .= ' WHERE utilizador="'.$username.'" AND senha = "'.$password.'"';
         $stmt = $conn->prepare($sql);
         $stmt->execute();
