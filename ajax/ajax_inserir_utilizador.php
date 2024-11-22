@@ -15,8 +15,8 @@ if ($_SESSION['tipo'] == 0) { // é admin
         $utilizador = $_POST['utilizador'];
         $senha = md5($_POST['senha']);
         $tipo = $_POST['tipo'];
-        $sql = "INSERT INTO utilizador(utilizador, senha, tipo) VALUES ";
-        $sql .= "('" . $utilizador . "', '" . $senha . "', '" . $tipo . "')";
+        $sql = "INSERT INTO t_utilizador(utilizador, senha, tipo) VALUES ";
+        $sql .= "('" . $utilizador . "', '" . $senha . "', " . $tipo . ")";
         echo consultarBD($sql);
     }
     die();
